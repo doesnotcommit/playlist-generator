@@ -1,10 +1,10 @@
 package sqlite
 
 import (
-	"fmt"
 	"database/sql"
-	"log"
 	"errors"
+	"fmt"
+	"log"
 
 	"accu_pls/playlist"
 	"accu_pls/repository"
@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS tracks (
 	secondary_link TEXT NOT NULL DEFAULT '' UNIQUE
 )
 `
+
 func NewSqliteRepo() (*Repository, error) {
 	db, err := sql.Open("sqlite3", "playlist.sqlite?mode=rwc&cache=shared")
 	if err != nil {
@@ -53,6 +54,7 @@ INSERT INTO tracks(
 	secondary_link
 ) VALUES($1, $2, $3, $4, $5, $6, $7, $8)
 `
+
 func (r *Repository) Save(channel string, tracks []*playlist.Track) error {
 	tx, err := r.db.Begin()
 	if err != nil {
@@ -90,6 +92,7 @@ func (r *Repository) Save(channel string, tracks []*playlist.Track) error {
 const qTrackExists = `
 SELECT 1 FROM tracks WHERE primary_link = $1 OR secondary_link = $2
 `
+
 func (r *Repository) Exists(track *playlist.Track) (bool, error) {
 	var one int
 	if err := r.db.QueryRow(qTrackExists, track.PrimaryLink, track.SecondaryLink).Scan(&one); err != nil {

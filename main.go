@@ -1,10 +1,10 @@
 package main
 
 import (
+	"errors"
 	"log"
 	"net/http"
 	"os"
-	"errors"
 
 	playlist "accu_pls/playlist/usecase"
 	"accu_pls/repository"
@@ -13,7 +13,7 @@ import (
 
 const (
 	defDuration = 86400
-	maxDryRuns = 64
+	maxDryRuns  = 64
 )
 
 func main() {
