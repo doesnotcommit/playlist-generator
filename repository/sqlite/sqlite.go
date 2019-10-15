@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS tracks (
 `
 
 func NewSqliteRepo() (*Repository, error) {
-	db, err := sql.Open("sqlite3", "playlist.sqlite?mode=rwc&cache=shared")
+	db, err := sql.Open("sqlite3", "file:playlist.sqlite?mode=rwc&cache=shared")
 	if err != nil {
 		return nil, fmt.Errorf("new sqlite db file %w", err)
 	}
